@@ -1,0 +1,9 @@
+// 原生CSS变量 -- 顶级作用域
+:root {
+  --primary-color: #123;
+  --font-color: #eee;
+  --background-color: #222;
+  --el-bg-color: var(--background-color);
+  --header-background-color: rgba(#222, 0.8);
+  --world-map-point-color: #fff143;
+}
