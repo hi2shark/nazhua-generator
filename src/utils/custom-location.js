@@ -16,6 +16,9 @@ export function loadCustomLocation() {
 }
 
 export function saveCustomLocation(data) {
+  if (!data) {
+    return;
+  }
   localStorage.setItem('nazhua-custom-location', JSON.stringify(data));
 }
 

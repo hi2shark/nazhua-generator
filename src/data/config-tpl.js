@@ -13,6 +13,7 @@ export default {
   wsPath: '/ws',
   nezhaPath: '/nezha/',
   nezhaV0ConfigType: 'servers', // 哪吒v0数据读取类型
+  routeMode: '', // 路由模式
   // customCodeMap: {}, // 自定义的地图点信息 - 这个需要读取自定义节点后再塞进来
 };
 
@@ -100,6 +101,24 @@ export const fieldLabels = {
         label: 'initData',
         value: 'initData',
         remark: '其它主题',
+      },
+    ],
+  },
+  routeMode: {
+    label: '路由模式',
+    placeholder: '请选择路由模式',
+    remark: '默认为h5，如果是hash模式，需要后端支持',
+    type: 'select',
+    options: [
+      {
+        label: 'h5',
+        value: 'h5',
+        remark: 'H5路由模式',
+      },
+      {
+        label: 'hash',
+        value: 'hash',
+        remark: 'Hash路由模式',
       },
     ],
   },

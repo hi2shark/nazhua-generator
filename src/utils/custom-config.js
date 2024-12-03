@@ -16,6 +16,9 @@ export function loadCustomConfig() {
 }
 
 export function saveCustomConfig(data) {
+  if (!data) {
+    return;
+  }
   localStorage.setItem('nazhua-custom-config', JSON.stringify(data));
 }
 
