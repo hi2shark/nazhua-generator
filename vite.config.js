@@ -6,6 +6,7 @@ import eslintPlugin from 'vite-plugin-eslint';
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/nazhua-generator/',
   server: {
     host: '0.0.0.0',
     port: 13000,
