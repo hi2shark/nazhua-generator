@@ -13,6 +13,8 @@ export default {
   hideListItemStatusDonut: false, // 隐藏列表项的饼图
   hideListItemStat: false, // 隐藏列表项的统计信息
   hideListItemBill: false, // 隐藏列表项的账单信息
+  listServerStatusType: '', // 服务器状态类型--列表 progress、donut
+  detailServerStatusType: '', // 服务器状态类型--详情页 progress、donut
   apiMonitorPath: '/api/v1/monitor/{id}',
   wsPath: '/ws',
   nezhaPath: '/nezha/',
@@ -91,6 +93,38 @@ export const fieldLabels = {
     label: '隐藏列表账单',
     remark: '隐藏列表项的账单信息，不影响详情页的账单信息',
     type: 'switch',
+  },
+  listServerStatusType: {
+    label: '列表状态类型',
+    placeholder: '请选择列表状态类型',
+    remark: '列表项的状态类型',
+    type: 'select',
+    options: [
+      {
+        label: '圆环饼图(donut) - 默认',
+        value: 'donut',
+      },
+      {
+        label: '进度条(progress)',
+        value: 'progress',
+      },
+    ],
+  },
+  detailServerStatusType: {
+    label: '详情状态类型',
+    placeholder: '请选择详情状态类型',
+    remark: '详情页的状态类型',
+    type: 'select',
+    options: [
+      {
+        label: '圆环饼图(donut) - 默认',
+        value: 'donut',
+      },
+      {
+        label: '进度条(progress)',
+        value: 'progress',
+      },
+    ],
   },
   apiMonitorPath: {
     label: '监控API地址',
