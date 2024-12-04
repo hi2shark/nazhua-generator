@@ -7,8 +7,12 @@ export default {
   hideTag: false,
   freeAmount: '',
   infinityCycle: '', // 无限周期名称
-  hideListItemBill: false, // 隐藏列表项的账单信息
   buyBtnText: '', // 购买按钮文案
+  hideNavbarServerCount: false, // 隐藏服务器数量
+  hideNavbarServerStat: false, // 隐藏服务器统计
+  hideListItemStatusDonut: false, // 隐藏列表项的饼图
+  hideListItemStat: false, // 隐藏列表项的统计信息
+  hideListItemBill: false, // 隐藏列表项的账单信息
   apiMonitorPath: '/api/v1/monitor/{id}',
   wsPath: '/ws',
   nezhaPath: '/nezha/',
@@ -51,22 +55,42 @@ export const fieldLabels = {
     remark: '默认显示为“免费”，万一你想叫它“白嫖”呢？',
     type: 'input',
   },
+  buyBtnText: {
+    label: '购买按钮文案',
+    placeholder: '请输入购买按钮文案',
+    remark: '默认显示为“购买”，万一你想叫它“下单”呢？',
+    type: 'input',
+  },
   infinityCycle: {
     label: '无限周期名称',
     placeholder: '请输入无限周期名称',
     remark: '默认显示为“无限”，万一你想叫它“永久”呢？',
     type: 'input',
   },
+  hideNavbarServerCount: {
+    label: '隐藏服务器数量',
+    type: 'switch',
+    remark: '隐藏导航栏的服务器数量统计',
+  },
+  hideNavbarServerStat: {
+    label: '隐藏服务器统计',
+    type: 'switch',
+    remark: '隐藏导航栏的服务器统计信息',
+  },
+  hideListItemStatusDonut: {
+    label: '隐藏列表饼图',
+    remark: '隐藏列表项的状态饼图，不影响详情页的状态饼图',
+    type: 'switch',
+  },
+  hideListItemStat: {
+    label: '隐藏列表统计',
+    remark: '隐藏列表项的统计信息，不影响详情页的统计信息',
+    type: 'switch',
+  },
   hideListItemBill: {
     label: '隐藏列表账单',
     remark: '隐藏列表项的账单信息，不影响详情页的账单信息',
     type: 'switch',
-  },
-  buyBtnText: {
-    label: '购买按钮文案',
-    placeholder: '请输入购买按钮文案',
-    remark: '默认显示为“购买”，万一你想叫它“下单”呢？',
-    type: 'input',
   },
   apiMonitorPath: {
     label: '监控API地址',
