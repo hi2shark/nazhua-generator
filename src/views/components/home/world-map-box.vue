@@ -90,7 +90,7 @@
         <div class="left-box">
           <div class="mode-name">
             <span class="name-label">内置定位地点</span>
-            <span class="name-desc">由于时间和精力，目前没有做完整的数据中心城市标记，太累人了。。。大家自定义吧</span>
+            <span class="name-desc">仅内置了几个我常见的城市定位，<span class="code-value">此颜色</span>的都是可用代码，点击可自动复制（吧</span>
           </div>
         </div>
         <div class="right-box">
@@ -117,8 +117,11 @@
           <span class="location-name">
             {{ locationItem.name }}
           </span>
-          <span class="location-code">
-            [{{ locationItem.code }}]
+          <span
+            class="location-code"
+            @click.stop="copyText(locationItem.code)"
+          >
+            {{ locationItem.code }}
           </span>
         </div>
       </div>
@@ -131,7 +134,10 @@
           :key="locationItem.alias"
           class="mapping-item"
         >
-          <span class="mapping-alias">
+          <span
+            class="mapping-alias"
+            @click.stop="copyText(locationItem.alias)"
+          >
             {{ locationItem.alias }}
           </span>
           <span class="ri-arrow-right-line" />
@@ -193,8 +199,11 @@
             <span class="location-name">
               {{ locationItem.name }}
             </span>
-            <span class="location-code">
-              [{{ locationItem.code }}]
+            <span
+              class="location-code"
+              @click.stop="copyText(locationItem.code)"
+            >
+              {{ locationItem.code }}
             </span>
           </div>
           <div class="location-item-operate">
@@ -241,6 +250,7 @@ import CODE_MAPS, {
   countryCodeMapping,
 } from '@/data/code-maps';
 import uuid from '@/utils/uuid';
+import copyText from '@/utils/copy-text';
 import {
   loadCustomLocation,
   saveCustomLocation,
@@ -473,6 +483,10 @@ defineExpose({
       line-height: 16px;
       font-size: 12px;
       color: #ccc;
+
+      .code-value {
+        color: #ff4d4f;
+      }
     }
   }
 }
@@ -514,6 +528,7 @@ defineExpose({
 
     .location-code {
       color: #ff4d4f;
+      cursor: default;
     }
   }
 
