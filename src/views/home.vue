@@ -82,7 +82,6 @@ function handleRefreshConfigData() {
 function topTabChange() {
   if (topTab.value === 'exportConfig') {
     exportBoxRef.value?.setData?.(handleRefreshConfigData());
-    console.log('导出配置', handleRefreshConfigData());
   }
 }
 </script>

@@ -24,6 +24,21 @@
           >
             下载文件
           </el-button>
+          <span class="nezha-v1-dashboard-custom-code-group">
+            <span>用于哪吒V1控制台自定义代码</span>
+            <el-switch
+              v-model="nezhaV1DashboardCustomCode"
+              inline-prompt
+              active-text="是"
+              inactive-text="否"
+            />
+            <span
+              v-if="
+                nezhaV1DashboardCustomCode && exportData.routeMode === 'h5'
+              "
+              class="warning-text"
+            >*自定义代码内设定routeMode: 'h5'无法生效</span>
+          </span>
         </div>
         <div class="right-box">
           <el-button
@@ -46,6 +61,7 @@
 
 import {
   ref,
+  watch,
 } from 'vue';
 import {
   ElMessage,
@@ -59,6 +75,8 @@ const props = defineProps({
 });
 
 const showHighlight = ref(false);
+const nezhaV1DashboardCustomCode = ref(false);
+const exportData = ref();
 const exportConfigData = ref('');
 
 function ObjectToString(obj, indent = '') {
@@ -85,8 +103,13 @@ function ObjectToString(obj, indent = '') {
 }
 
 function handleConfigData(data) {
+  exportData.value = data;
   const configData = `window.$$nazhuaConfig = ${ObjectToString(data)};`;
-  exportConfigData.value = configData;
+  if (nezhaV1DashboardCustomCode.value) {
+    exportConfigData.value = `<script>\n  ${configData}\n&lt;/script>`.replace('&lt;/', '</');
+  } else {
+    exportConfigData.value = configData;
+  }
   showHighlight.value = false;
   setTimeout(() => {
     showHighlight.value = true;
@@ -122,6 +145,10 @@ function handleRefreshConfigData() {
   }
 }
 
+watch(() => nezhaV1DashboardCustomCode.value, () => {
+  handleRefreshConfigData();
+});
+
 defineExpose({
   setData(data) {
     handleConfigData(data);
@@ -138,6 +165,27 @@ defineExpose({
 .config-textarea-operate {
   display: flex;
   justify-content: space-between;
+
+  .left-box {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    .el-button + .el-button {
+      margin-left: 0;
+    }
+  }
+
+  .nezha-v1-dashboard-custom-code-group {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    .warning-text {
+      color: #ff6;
+      font-weight: bold;
+    }
+  }
 }
 </style>
 

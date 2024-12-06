@@ -16,6 +16,7 @@ export default {
   hideListItemBill: false, // 隐藏列表项的账单信息
   hideFilter: false, // 隐藏筛选
   hideTag: false, // 隐藏标签
+  hideDotBG: false, // 隐藏盒子里面的点阵背景
   nezhaVersion: 'v1', // 哪吒版本
   apiMonitorPath: '/api/v1/monitor/{id}',
   wsPath: '/ws',
@@ -139,6 +140,11 @@ export const fieldLabels = {
   hideTag: {
     label: '隐藏标签',
     type: 'switch',
+  },
+  hideDotBG: {
+    label: '隐藏点阵背景',
+    type: 'switch',
+    remark: '隐藏盒子里面的点阵背景',
   },
   nezhaVersion: {
     label: '哪吒版本',
