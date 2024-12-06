@@ -15,10 +15,14 @@ export default {
   hideListItemBill: false, // 隐藏列表项的账单信息
   listServerStatusType: '', // 服务器状态类型--列表 progress、donut
   detailServerStatusType: '', // 服务器状态类型--详情页 progress、donut
+  nezhaVersion: 'v0', // 哪吒版本
   apiMonitorPath: '/api/v1/monitor/{id}',
   wsPath: '/ws',
   nezhaPath: '/nezha/',
   nezhaV0ConfigType: 'servers', // 哪吒v0数据读取类型
+  v1ApiMonitorPath: '/api/v1/service/{id}',
+  v1WsPath: '/api/v1/ws/server',
+  v1GroupPath: '/api/v1/server-group',
   routeMode: '', // 路由模式
   // customCodeMap: {}, // 自定义的地图点信息 - 这个需要读取自定义节点后再塞进来
 };
@@ -126,6 +130,22 @@ export const fieldLabels = {
       },
     ],
   },
+  nezhaVersion: {
+    label: '哪吒版本',
+    placeholder: '请选择哪吒版本',
+    remark: '哪吒探针的版本，目前仅支持v0和v1，默认为v0',
+    type: 'select',
+    options: [
+      {
+        label: 'v0 - 默认',
+        value: 'v0',
+      },
+      {
+        label: 'v1',
+        value: 'v1',
+      },
+    ],
+  },
   apiMonitorPath: {
     label: '监控API地址',
     placeholder: '请输入网络服务监控API路径',
@@ -161,6 +181,24 @@ export const fieldLabels = {
         remark: '其它主题',
       },
     ],
+  },
+  v1ApiMonitorPath: {
+    label: 'v1监控API地址',
+    placeholder: '请输入v1网络服务监控API路径',
+    remark: '主要是网络服务那个监控数据的读取，目前只会替换关键词 {id}',
+    type: 'input',
+  },
+  v1WsPath: {
+    label: 'v1WS服务地址',
+    placeholder: '请输入v1WebSocket服务的路径',
+    remark: '如果ws不可用，无法实时更新数据',
+    type: 'input',
+  },
+  v1GroupPath: {
+    label: 'v1服务器组API地址',
+    placeholder: '请输入v1服务器组API路径',
+    remark: 'v1版本的服务器组API',
+    type: 'input',
   },
   routeMode: {
     label: '路由模式',
