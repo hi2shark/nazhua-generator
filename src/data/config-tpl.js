@@ -1,29 +1,34 @@
 export default {
-  title: '',
-  hideWorldMap: false,
-  hideHomeWorldMap: false,
-  hideDetailWorldMap: false,
-  hideFilter: false,
-  hideTag: false,
-  freeAmount: '',
-  infinityCycle: '', // 无限周期名称
-  buyBtnText: '', // 购买按钮文案
+  title: '哪吒监控', // 网站标题
+  freeAmount: '白嫖', // 免费服务的费用名称
+  infinityCycle: '无限', // 无限周期名称
+  buyBtnText: '购买', // 购买按钮文案
+  listServerStatusType: 'progress', // 服务器状态类型--列表
+  detailServerStatusType: 'progress', // 服务器状态类型--详情页
+  disableSarasaTermSC: false, // 禁用Sarasa Term SC字体
+  hideWorldMap: false, // 隐藏地图
+  hideHomeWorldMap: false, // 隐藏首页地图
+  hideDetailWorldMap: false, // 隐藏详情地图
   hideNavbarServerCount: false, // 隐藏服务器数量
   hideNavbarServerStat: false, // 隐藏服务器统计
   hideListItemStatusDonut: false, // 隐藏列表项的饼图
   hideListItemStat: false, // 隐藏列表项的统计信息
   hideListItemBill: false, // 隐藏列表项的账单信息
-  listServerStatusType: '', // 服务器状态类型--列表 progress、donut
-  detailServerStatusType: '', // 服务器状态类型--详情页 progress、donut
-  nezhaVersion: 'v0', // 哪吒版本
+  hideFilter: false, // 隐藏筛选
+  hideTag: false, // 隐藏标签
+  nezhaVersion: 'v1', // 哪吒版本
   apiMonitorPath: '/api/v1/monitor/{id}',
   wsPath: '/ws',
   nezhaPath: '/nezha/',
   nezhaV0ConfigType: 'servers', // 哪吒v0数据读取类型
   v1ApiMonitorPath: '/api/v1/service/{id}',
   v1WsPath: '/api/v1/ws/server',
-  v1GroupPath: '/api/v1/server-group',
-  routeMode: '', // 路由模式
+  v1ApiGroupPath: '/api/v1/server-group',
+  v1ApiSettingPath: '/api/v1/setting',
+  v1ApiProfilePath: '/api/v1/profile',
+  v1DashboardUrl: '/dashboard', // v1版本控制台地址
+  v1HideNezhaDashboardBtn: false, // v1版本导航栏控制台入口/登录按钮 在nezhaVersion为v1时有效
+  routeMode: 'h5', // 路由模式
   // customCodeMap: {}, // 自定义的地图点信息 - 这个需要读取自定义节点后再塞进来
 };
 
@@ -33,27 +38,6 @@ export const fieldLabels = {
     placeholder: '请输入网站标题',
     remark: '默认显示为“哪吒探针”',
     type: 'input',
-  },
-  hideWorldMap: {
-    label: '隐藏地图',
-    type: 'switch',
-    remark: '隐藏地图后，首页和详情页都不会显示地图',
-  },
-  hideHomeWorldMap: {
-    label: '首页隐藏地图',
-    type: 'switch',
-  },
-  hideDetailWorldMap: {
-    label: '详情页隐藏地图',
-    type: 'switch',
-  },
-  hideFilter: {
-    label: '隐藏筛选',
-    type: 'switch',
-  },
-  hideTag: {
-    label: '隐藏标签',
-    type: 'switch',
   },
   freeAmount: {
     label: '免费的叫啥',
@@ -72,31 +56,6 @@ export const fieldLabels = {
     placeholder: '请输入无限周期名称',
     remark: '默认显示为“无限”，万一你想叫它“永久”呢？',
     type: 'input',
-  },
-  hideNavbarServerCount: {
-    label: '隐藏服务器数量',
-    type: 'switch',
-    remark: '隐藏导航栏的服务器数量统计',
-  },
-  hideNavbarServerStat: {
-    label: '隐藏服务器统计',
-    type: 'switch',
-    remark: '隐藏导航栏的服务器统计信息',
-  },
-  hideListItemStatusDonut: {
-    label: '隐藏列表饼图',
-    remark: '隐藏列表项的状态饼图，不影响详情页的状态饼图',
-    type: 'switch',
-  },
-  hideListItemStat: {
-    label: '隐藏列表统计',
-    remark: '隐藏列表项的统计信息，不影响详情页的统计信息',
-    type: 'switch',
-  },
-  hideListItemBill: {
-    label: '隐藏列表账单',
-    remark: '隐藏列表项的账单信息，不影响详情页的账单信息',
-    type: 'switch',
   },
   listServerStatusType: {
     label: '列表状态类型',
@@ -129,6 +88,57 @@ export const fieldLabels = {
         value: 'progress',
       },
     ],
+  },
+  disableSarasaTermSC: {
+    label: '禁用内置字体',
+    type: 'switch',
+    remark: '禁用Sarasa Term SC字体',
+  },
+  hideWorldMap: {
+    label: '隐藏地图',
+    type: 'switch',
+    remark: '隐藏地图后，首页和详情页都不会显示地图',
+  },
+  hideHomeWorldMap: {
+    label: '首页隐藏地图',
+    type: 'switch',
+  },
+  hideDetailWorldMap: {
+    label: '详情页隐藏地图',
+    type: 'switch',
+  },
+  hideNavbarServerCount: {
+    label: '隐藏服务器数量',
+    type: 'switch',
+    remark: '隐藏导航栏的服务器数量统计',
+  },
+  hideNavbarServerStat: {
+    label: '隐藏服务器统计',
+    type: 'switch',
+    remark: '隐藏导航栏的服务器统计信息',
+  },
+  hideListItemStatusDonut: {
+    label: '隐藏列表饼图',
+    remark: '隐藏列表项的状态饼图，不影响详情页的状态饼图',
+    type: 'switch',
+  },
+  hideListItemStat: {
+    label: '隐藏列表统计',
+    remark: '隐藏列表项的统计信息，不影响详情页的统计信息',
+    type: 'switch',
+  },
+  hideListItemBill: {
+    label: '隐藏列表账单',
+    remark: '隐藏列表项的账单信息，不影响详情页的账单信息',
+    type: 'switch',
+  },
+  hideFilter: {
+    label: '隐藏筛选',
+    type: 'switch',
+  },
+  hideTag: {
+    label: '隐藏标签',
+    type: 'switch',
   },
   nezhaVersion: {
     label: '哪吒版本',
@@ -194,11 +204,34 @@ export const fieldLabels = {
     remark: '如果ws不可用，无法实时更新数据',
     type: 'input',
   },
-  v1GroupPath: {
+  v1ApiGroupPath: {
     label: 'v1服务器组API地址',
     placeholder: '请输入v1服务器组API路径',
     remark: 'v1版本的服务器组API',
     type: 'input',
+  },
+  v1ApiSettingPath: {
+    label: 'v1设置API地址',
+    placeholder: '请输入v1设置API路径',
+    remark: 'v1版本的设置API',
+    type: 'input',
+  },
+  v1ApiProfilePath: {
+    label: 'v1用户信息地址',
+    placeholder: '请输入v1用户信息API路径',
+    remark: 'v1版本的用户信息API',
+    type: 'input',
+  },
+  v1DashboardUrl: {
+    label: 'v1控制台地址',
+    placeholder: '请输入v1控制台地址',
+    remark: 'v1版本的控制台地址，默认为 /dashboard',
+    type: 'input',
+  },
+  v1HideNezhaDashboardBtn: {
+    label: '隐藏控制台按钮',
+    type: 'switch',
+    remark: '隐藏导航栏的控制台入口/登录按钮',
   },
   routeMode: {
     label: '路由模式',
