@@ -1,68 +1,81 @@
 <template>
   <div class="config-box">
+    <span class="nezha-v1-dashboard-custom-code-group">
+      <span>是否用于哪吒V1控制台自定义代码？</span>
+      <el-switch
+        v-model="nezhaV1DashboardCustomCode"
+        inline-prompt
+        active-text="是"
+        inactive-text="否"
+      />
+    </span>
     <el-form
       :model="configFormData"
       label-width="150px"
     >
-      <el-form-item
+      <template
         v-for="tplItem in configFormTpls"
         :key="tplItem.prop"
-        :label="tplItem.label"
-        :prop="tplItem.prop"
       >
-        <div class="config-el-form-item-group">
-          <div class="enable-config-switch">
-            <el-switch
-              v-model="configFieldEnable[tplItem.prop]"
-              inline-prompt
-              active-text="启用"
-              inactive-text="禁用"
-            />
-          </div>
-          <div class="config-el-form-item-group--content">
-            <el-autocomplete
-              v-if="tplItem.type === 'input' && tplItem.options"
-              v-model="configFormData[tplItem.prop]"
-              :placeholder="tplItem.placeholder"
-              :fetch-suggestions="tplItem.options"
-            >
-              <template #default="{ item }">
-                <div class="autocomplete-option">
-                  <div class="value">{{ item.value }}</div>
-                  <span class="desc">{{ item.label }}{{ item.remark }}</span>
-                </div>
-              </template>
-            </el-autocomplete>
-            <el-input
-              v-else-if="tplItem.type === 'input'"
-              v-model="configFormData[tplItem.prop]"
-              :placeholder="tplItem.placeholder"
-            />
-            <el-select
-              v-else-if="tplItem.type === 'select'"
-              v-model="configFormData[tplItem.prop]"
-              :placeholder="tplItem.placeholder"
-            >
-              <el-option
-                v-for="option in tplItem.options"
-                :key="option.value"
-                :label="option.label"
-                :value="option.value"
+        <el-form-item
+          v-if="!nezhaV1DashboardCustomCode || tplItem.v1customCode"
+          :label="tplItem.label"
+          :prop="tplItem.prop"
+        >
+          <div class="config-el-form-item-group">
+            <div class="enable-config-switch">
+              <el-switch
+                v-model="configFieldEnable[tplItem.prop]"
+                inline-prompt
+                active-text="启用"
+                inactive-text="禁用"
               />
-            </el-select>
-            <el-switch
-              v-else-if="tplItem.type === 'switch'"
-              v-model="configFormData[tplItem.prop]"
-            />
+            </div>
+            <div class="config-el-form-item-group--content">
+              <el-autocomplete
+                v-if="tplItem.type === 'input' && tplItem.options"
+                v-model="configFormData[tplItem.prop]"
+                :placeholder="tplItem.placeholder"
+                :fetch-suggestions="tplItem.options"
+              >
+                <template #default="{ item }">
+                  <div class="autocomplete-option">
+                    <div class="value">{{ item.value }}</div>
+                    <span class="desc">{{ item.label }}{{ item.remark }}</span>
+                  </div>
+                </template>
+              </el-autocomplete>
+              <el-input
+                v-else-if="tplItem.type === 'input'"
+                v-model="configFormData[tplItem.prop]"
+                :placeholder="tplItem.placeholder"
+              />
+              <el-select
+                v-else-if="tplItem.type === 'select'"
+                v-model="configFormData[tplItem.prop]"
+                :placeholder="tplItem.placeholder"
+              >
+                <el-option
+                  v-for="option in tplItem.options"
+                  :key="option.value"
+                  :label="option.label"
+                  :value="option.value"
+                />
+              </el-select>
+              <el-switch
+                v-else-if="tplItem.type === 'switch'"
+                v-model="configFormData[tplItem.prop]"
+              />
+            </div>
+            <div
+              v-if="tplItem.remark"
+              class="config-el-form-item--remark"
+            >
+              Tips: {{ tplItem.remark }}
+            </div>
           </div>
-          <div
-            v-if="tplItem.remark"
-            class="config-el-form-item--remark"
-          >
-            Tips: {{ tplItem.remark }}
-          </div>
-        </div>
-      </el-form-item>
+        </el-form-item>
+      </template>
       <el-form-item>
         <el-button
           type="warning"
@@ -82,10 +95,14 @@
 
 import {
   ref,
+  computed,
   onMounted,
   watch,
   nextTick,
 } from 'vue';
+import {
+  useStore,
+} from 'vuex';
 import {
   ElMessageBox,
 } from 'element-plus';
@@ -99,9 +116,18 @@ import {
 } from '@/utils/custom-config';
 import validate from '@/utils/validate';
 
+const store = useStore();
+
 const configFormData = ref({});
 const configFormTpls = ref([]);
 const configFieldEnable = ref({});
+
+const nezhaV1DashboardCustomCode = computed({
+  get: () => store.state.v1CustomCode,
+  set: (value) => {
+    store.commit('SET_V1_CUSTOM_CODE', value);
+  },
+});
 
 function handleConfigTpl() {
   const formData = {};
@@ -182,9 +208,12 @@ onMounted(() => {
 defineExpose({
   getData() {
     const data = {};
-    Object.keys(configFieldEnable.value).forEach((key) => {
-      if (configFieldEnable.value[key]) {
-        data[key] = configFormData.value[key];
+    configFormTpls.value.forEach((tplItem) => {
+      if (nezhaV1DashboardCustomCode.value && !tplItem.v1customCode) {
+        return;
+      }
+      if (configFieldEnable.value[tplItem.prop]) {
+        data[tplItem.prop] = configFormData.value[tplItem.prop];
       }
     });
     return data;
@@ -236,6 +265,18 @@ defineExpose({
     line-height: 16px;
     font-size: 12px;
     color: #09f;
+  }
+}
+
+.nezha-v1-dashboard-custom-code-group {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 20px;
+
+  .warning-text {
+    color: #ff6;
+    font-weight: bold;
   }
 }
 </style>
