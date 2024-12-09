@@ -1,7 +1,7 @@
 export default {
   title: '哪吒监控', // 网站标题
   freeAmount: '白嫖', // 免费服务的费用名称
-  infinityCycle: '无限', // 无限周期名称
+  infinityCycle: '长期有效', // 无限周期名称
   buyBtnText: '购买', // 购买按钮文案
   listServerStatusType: 'progress', // 服务器状态类型--列表
   detailServerStatusType: 'progress', // 服务器状态类型--详情页
@@ -60,7 +60,7 @@ export const fieldLabels = {
   infinityCycle: {
     label: '无限周期名称',
     placeholder: '请输入无限周期名称',
-    remark: '默认显示为“无限”，万一你想叫它“永久”呢？',
+    remark: '默认显示为“长期有效”，万一你想叫它“永久”呢？',
     type: 'input',
     v1customCode: true,
   },
