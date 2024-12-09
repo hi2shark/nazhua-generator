@@ -17,6 +17,7 @@ export default {
   hideFilter: false, // 隐藏筛选
   hideTag: false, // 隐藏标签
   hideDotBG: false, // 隐藏盒子里面的点阵背景
+  monitorRefreshTime: 10, // 监控刷新时间间隔，单位s（秒）, 0为不刷新，为保证不频繁请求源站，最低生效值为10s
   nezhaVersion: 'v1', // 哪吒版本
   apiMonitorPath: '/api/v1/monitor/{id}',
   wsPath: '/ws',
@@ -164,6 +165,13 @@ export const fieldLabels = {
     label: '隐藏点阵背景',
     type: 'switch',
     remark: '隐藏盒子里面的点阵背景',
+    v1customCode: true,
+  },
+  monitorRefreshTime: {
+    label: '监控刷新时间',
+    placeholder: '请输入监控刷新时间',
+    remark: '监控刷新时间间隔，单位s（秒）, 0为不刷新，为保证不频繁请求源站，最低生效值为10s',
+    type: 'input',
     v1customCode: true,
   },
   nezhaVersion: {
