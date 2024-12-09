@@ -22,6 +22,18 @@
           :label="tplItem.label"
           :prop="tplItem.prop"
         >
+          <template #label>
+            <div class="label-group">
+              <span>{{ tplItem.label }}</span>
+              <span
+                v-if="tplItem.version"
+                class="support-version"
+                :title="`支持版本：${tplItem.version}`"
+              >
+                {{ tplItem.version }}
+              </span>
+            </div>
+          </template>
           <div class="config-el-form-item-group">
             <div class="enable-config-switch">
               <el-switch
@@ -48,11 +60,19 @@
               <el-input
                 v-else-if="tplItem.type === 'input'"
                 v-model="configFormData[tplItem.prop]"
+                clearable
+                :placeholder="tplItem.placeholder"
+              />
+              <el-input-tag
+                v-else-if="tplItem.type === 'input-tag'"
+                v-model="configFormData[tplItem.prop]"
+                clearable
                 :placeholder="tplItem.placeholder"
               />
               <el-select
                 v-else-if="tplItem.type === 'select'"
                 v-model="configFormData[tplItem.prop]"
+                clearable
                 :placeholder="tplItem.placeholder"
               >
                 <el-option
@@ -247,6 +267,31 @@ defineExpose({
     line-height: 24px;
     font-size: 12px;
     color: #09f;
+  }
+}
+
+.label-group {
+  position: relative;
+
+  .support-version {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 0 5px;
+    height: 18px;
+    line-height: 18px;
+    font-size: 12px;
+    color: #ddd;
+    background: transparent;
+    border-radius: 4px;
+    transform: scale(0.75) translate(10%, 65%);
+    transition: all 0.3s;
+    cursor: help;
+    &:hover {
+      color: #123;
+      background-color: #eee;
+      transform: scale(1) translate(0, 65%);
+    }
   }
 }
 

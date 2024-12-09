@@ -72,12 +72,47 @@ const showHighlight = ref(false);
 const exportData = ref();
 const exportConfigData = ref('');
 
-function ObjectToString(obj, indent = '') {
+const toStringMap = {
+  ArrayToString: undefined,
+  ObjectToString: undefined,
+};
+
+toStringMap.ArrayToString = (arr, indent = '') => {
+  let str = '[\n';
+  arr.forEach((item) => {
+    if (Array.isArray(item)) {
+      str += `${indent}  ${toStringMap?.ArrayToString?.(item, `${indent}  `)},\n`;
+      return;
+    }
+    if (typeof item === 'object') {
+      str += `${indent}  ${toStringMap?.ObjectToString?.(item, `${indent}  `)},\n`;
+      return;
+    }
+    if (typeof item === 'string') {
+      item = `'${item}'`;
+    }
+    if (typeof item === 'boolean') {
+      item = item ? 'true' : 'false';
+    }
+    if (typeof item === 'undefined') {
+      return;
+    }
+    str += `${indent}  ${item},\n`;
+  });
+  str += `${indent}]`;
+  return str;
+};
+
+toStringMap.ObjectToString = (obj, indent = '') => {
   let str = '{\n';
   Object.entries(obj).forEach(([key, value]) => {
     let val = value;
+    if (Array.isArray(value)) {
+      str += `${indent}  ${key}: ${toStringMap?.ArrayToString?.(val, `${indent}  `)},\n`;
+      return;
+    }
     if (typeof value === 'object') {
-      str += `${indent}  ${key}: ${ObjectToString(val, `${indent}  `)},\n`;
+      str += `${indent}  ${key}: ${toStringMap?.ObjectToString?.(val, `${indent}  `)},\n`;
       return;
     }
     if (typeof value === 'string') {
@@ -93,11 +128,11 @@ function ObjectToString(obj, indent = '') {
   });
   str += `${indent}}`;
   return str;
-}
+};
 
 function handleConfigData(data) {
   exportData.value = data;
-  const configData = ObjectToString(data);
+  const configData = toStringMap.ObjectToString(data);
   if (nezhaV1DashboardCustomCode.value) {
     exportConfigData.value = `<script>
 window.$mergeNazhuaConfig && window.$mergeNazhuaConfig(${configData});

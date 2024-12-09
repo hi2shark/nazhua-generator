@@ -18,6 +18,7 @@ export default {
   hideTag: false, // 隐藏标签
   hideDotBG: false, // 隐藏盒子里面的点阵背景
   monitorRefreshTime: 10, // 监控刷新时间间隔，单位s（秒）, 0为不刷新，为保证不频繁请求源站，最低生效值为10s
+  filterGPUKeywords: ['Virtual Display'], // 如果GPU名称中包含这些关键字，则过滤掉
   nezhaVersion: 'v1', // 哪吒版本
   apiMonitorPath: '/api/v1/monitor/{id}',
   wsPath: '/ws',
@@ -173,6 +174,15 @@ export const fieldLabels = {
     remark: '监控刷新时间间隔，单位s（秒）, 0为不刷新，为保证不频繁请求源站，最低生效值为10s',
     type: 'input',
     v1customCode: true,
+    version: '0.4.8+',
+  },
+  filterGPUKeywords: {
+    label: 'GPU过滤关键字',
+    placeholder: '请输入GPU过滤关键字',
+    remark: '按下Enter建(回车)确定关键词；如果GPU名称中包含这些关键字，则过滤掉',
+    type: 'input-tag',
+    v1customCode: true,
+    version: '0.4.9+',
   },
   nezhaVersion: {
     label: '哪吒版本',
