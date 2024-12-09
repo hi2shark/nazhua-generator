@@ -499,7 +499,7 @@ defineExpose({
 
   .el-switch {
     &.is-checked {
-      --el-color-white: #234;
+      --el-color-white: var(--background-color);
     }
     --el-switch-on-color: var(--world-map-point-color);
   }
@@ -507,7 +507,7 @@ defineExpose({
 
 .show-custom-location-to-map {
   .el-switch {
-    --el-switch-on-color: #ffb400;
+    --el-switch-on-color: var(--world-map-custom-point-color);
   }
 }
 

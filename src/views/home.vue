@@ -6,12 +6,21 @@
           <h1 class="site-name">Nazhua配置生成器</h1>
         </div>
         <div class="right-box">
+          <div class="mode-switch">
+            <el-switch
+              v-model="isDarkMode"
+              inline-prompt
+              active-text="Dark"
+              inactive-text="Light"
+              @change="handleModeChange"
+            />
+          </div>
           <a
             class="github-link"
             href="https://github.com/hi2shark/nazhua"
             _target="blank"
           >
-            Github
+            源代码(Github)
           </a>
         </div>
       </div>
@@ -59,6 +68,7 @@
 import {
   ref,
 } from 'vue';
+import { useDark, useToggle } from '@vueuse/core';
 
 import WorldMapBox from '@/views/components/home/world-map-box.vue';
 import ConfigBox from '@/views/components/home/config-box.vue';
@@ -69,6 +79,7 @@ const topTab = ref('mapPoint');
 const worldMapBoxRef = ref(null);
 const configBoxRef = ref(null);
 const exportBoxRef = ref(null);
+const isDarkMode = ref(useDark());
 
 function handleRefreshConfigData() {
   const mapBoxData = worldMapBoxRef.value?.getData?.();
@@ -83,6 +94,10 @@ function topTabChange() {
   if (topTab.value === 'exportConfig') {
     exportBoxRef.value?.setData?.(handleRefreshConfigData());
   }
+}
+
+function handleModeChange() {
+  useToggle();
 }
 </script>
 
@@ -115,11 +130,25 @@ function topTabChange() {
     font-size: 20px;
   }
 
+  .right-box {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
   .github-link {
-    color: #eee;
+    color: var(--font-color);
     &:hover {
       color: #08f;
     }
+  }
+
+  .mode-switch {
+    &.is-checked {
+      --el-color-white: var(--background-color);
+    }
+
+    --el-switch-on-color: #f3f6f6;
   }
 }
 

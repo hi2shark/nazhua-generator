@@ -1,9 +1,20 @@
 // 原生CSS变量 -- 顶级作用域
 :root {
-  --primary-color: #123;
+  --font-color: #444;
+  --background-color: #f8f8f8;
+  --el-bg-color: var(--background-color);
+  --header-background-color: rgba(#fff, 0.8);
+  --link-color: #007bff;
+  --world-map-point-color: #08f;
+  --world-map-custom-point-color: #08a;
+}
+
+html.dark {
   --font-color: #eee;
   --background-color: #222;
   --el-bg-color: var(--background-color);
   --header-background-color: rgba(#222, 0.8);
   --world-map-point-color: #fff143;
+  --world-map-custom-point-color: #ffb400;
+  --link-color: #eee;
 }

@@ -6,7 +6,12 @@
     @click="worldMapClick"
     @mousemove="worldMapMouseMove"
   >
-    <div class="world-map-img" />
+    <div
+      class="world-map-img"
+      :class="{
+        'is-dark': isDarkMode,
+      }"
+    />
     <transition-group
       name="point"
       tag="div"
@@ -31,6 +36,7 @@ import {
   ref,
   computed,
 } from 'vue';
+import { useDark } from '@vueuse/core';
 import validate from '@/utils/validate';
 
 import WorldMapPoint from './world-map-point.vue';
@@ -55,6 +61,7 @@ const props = defineProps({
 const emits = defineEmits(['point-coord', 'select-coord', 'mouse-coord']);
 
 const worldMapImgRef = ref(null);
+const isDarkMode = useDark();
 
 // 计算地图大小 保持1280:621的比例 保证地图不变形
 const computedSize = computed(() => {
@@ -151,9 +158,12 @@ function handlePointTap(e) {
   .world-map-img {
     width: var(--world-map-width, 1280px);
     height: var(--world-map-height, 621px);
-    background: url(@/assets/images/world-map.svg) 50% 50% no-repeat;
+    background: url(@/assets/images/world-map-light.svg) 50% 50% no-repeat;
     background-size: 100%;
     opacity: 0.75;
+    &.is-dark {
+      background-image: url(@/assets/images/world-map-dark.svg);
+    }
   }
 
   .world-map-tips {
