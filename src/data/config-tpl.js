@@ -4,6 +4,7 @@ export default {
   infinityCycle: '长期有效', // 无限周期名称
   buyBtnText: '购买', // 购买按钮文案
   listServerStatusType: 'progress', // 服务器状态类型--列表
+  listServerRealTimeShowLoad: false, // 列表实时显示负载
   detailServerStatusType: 'progress', // 服务器状态类型--详情页
   disableSarasaTermSC: false, // 禁用Sarasa Term SC字体
   hideWorldMap: false, // 隐藏地图
@@ -80,6 +81,13 @@ export const fieldLabels = {
       },
     ],
     v1customCode: true,
+  },
+  listServerRealTimeShowLoad: {
+    label: '列表显示负载',
+    type: 'switch',
+    remark: '列表显示显示服务器的负载，启用后会影响网速的显示模块',
+    v1customCode: true,
+    supportVersion: '0.4.13+',
   },
   detailServerStatusType: {
     label: '详情状态类型',
@@ -187,7 +195,7 @@ export const fieldLabels = {
   nezhaVersion: {
     label: '哪吒版本',
     placeholder: '请选择哪吒版本',
-    remark: '哪吒探针的版本，目前仅支持v0和v1，默认为v0',
+    remark: '哪吒探针的版本，目前仅支持v0和v1，0.4.13前默认为v0，0.4.13后默认为自动处理',
     type: 'select',
     options: [
       {
