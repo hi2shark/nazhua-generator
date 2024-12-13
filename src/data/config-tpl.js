@@ -6,6 +6,7 @@ export default {
   listServerStatusType: 'progress', // 服务器状态类型--列表
   listServerRealTimeShowLoad: false, // 列表实时显示负载
   detailServerStatusType: 'progress', // 服务器状态类型--详情页
+  serverStatusLinear: true, // 服务器状态渐变线性显示
   disableSarasaTermSC: false, // 禁用Sarasa Term SC字体
   hideWorldMap: false, // 隐藏地图
   hideHomeWorldMap: false, // 隐藏首页地图
@@ -105,6 +106,13 @@ export const fieldLabels = {
       },
     ],
     v1customCode: true,
+  },
+  serverStatusLinear: {
+    label: '状态渐变显示',
+    type: 'switch',
+    remark: '状态线性渐变色显示，不勾选则为单色显示',
+    v1customCode: true,
+    supportVersion: '0.4.19+',
   },
   disableSarasaTermSC: {
     label: '禁用内置字体',
