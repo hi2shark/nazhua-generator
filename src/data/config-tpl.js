@@ -3,7 +3,7 @@ export default {
   freeAmount: '白嫖', // 免费服务的费用名称
   infinityCycle: '长期有效', // 无限周期名称
   buyBtnText: '购买', // 购买按钮文案
-  listServerItemType: 'card', // 服务器列表项类型 card/row row列表模式目前为体验版不兼容移动端
+  listServerItemType: 'card', // 服务器列表项类型 card/row
   listServerStatusType: 'progress', // 服务器状态类型--列表
   listServerRealTimeShowLoad: false, // 列表实时显示负载
   detailServerStatusType: 'progress', // 服务器状态类型--详情页
@@ -70,7 +70,7 @@ export const fieldLabels = {
   listServerItemType: {
     label: '列表项类型',
     placeholder: '请选择列表项类型',
-    remark: '列表项的显示类型，row模式不兼容移动端',
+    remark: '列表项的显示类型',
     type: 'select',
     options: [
       {
@@ -78,12 +78,12 @@ export const fieldLabels = {
         value: 'card',
       },
       {
-        label: '行(row) - 不兼容移动端',
+        label: '行(row)',
         value: 'row',
       },
     ],
     v1customCode: true,
-    supportVersion: '0.4.21+',
+    version: '0.4.21+',
   },
   listServerStatusType: {
     label: '列表状态类型',
@@ -107,7 +107,7 @@ export const fieldLabels = {
     type: 'switch',
     remark: '列表显示显示服务器的负载，启用后会影响网速的显示模块',
     v1customCode: true,
-    supportVersion: '0.4.13+',
+    version: '0.4.13+',
   },
   detailServerStatusType: {
     label: '详情状态类型',
@@ -131,7 +131,7 @@ export const fieldLabels = {
     type: 'switch',
     remark: '状态线性渐变色显示，不勾选则为单色显示',
     v1customCode: true,
-    supportVersion: '0.4.19+',
+    version: '0.4.19+',
   },
   disableSarasaTermSC: {
     label: '禁用内置字体',
