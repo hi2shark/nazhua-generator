@@ -3,6 +3,8 @@ export default {
   freeAmount: '白嫖', // 免费服务的费用名称
   infinityCycle: '长期有效', // 无限周期名称
   buyBtnText: '购买', // 购买按钮文案
+  customBackgroundImage: '', // 自定义的背景图片地址
+  lightBackground: false, // 启用了浅色系背景图，会强制关闭点点背景
   listServerItemType: 'card', // 服务器列表项类型 card/row
   listServerStatusType: 'progress', // 服务器状态类型--列表
   listServerRealTimeShowLoad: false, // 列表实时显示负载
@@ -66,6 +68,21 @@ export const fieldLabels = {
     remark: '默认显示为“长期有效”，万一你想叫它“永久”呢？',
     type: 'input',
     v1customCode: true,
+  },
+  customBackgroundImage: {
+    label: '自定义背景图片',
+    placeholder: '请输入自定义背景图片地址',
+    remark: '自定义背景图片地址，注意不要太大',
+    type: 'input',
+    v1customCode: true,
+    version: '0.4.23+',
+  },
+  lightBackground: {
+    label: '启用浅色背景',
+    type: 'switch',
+    remark: '启用浅色背景，会强制关闭点点背景，配合自定义背景图片使用',
+    v1customCode: true,
+    version: '0.4.23+',
   },
   listServerItemType: {
     label: '列表项类型',
