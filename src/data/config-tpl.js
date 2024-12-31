@@ -5,12 +5,13 @@ export default {
   buyBtnText: '购买', // 购买按钮文案
   customBackgroundImage: '', // 自定义的背景图片地址
   lightBackground: false, // 启用了浅色系背景图，会强制关闭点点背景
+  listServerItemTypeToggle: true, // 服务器列表项类型切换
   listServerItemType: 'card', // 服务器列表项类型 card/row
   listServerStatusType: 'progress', // 服务器状态类型--列表
   listServerRealTimeShowLoad: false, // 列表实时显示负载
   detailServerStatusType: 'progress', // 服务器状态类型--详情页
   serverStatusLinear: true, // 服务器状态渐变线性显示
-  disableSarasaTermSC: false, // 禁用Sarasa Term SC字体
+  disableSarasaTermSC: true, // 禁用Sarasa Term SC字体
   hideWorldMap: false, // 隐藏地图
   hideHomeWorldMap: false, // 隐藏首页地图
   hideDetailWorldMap: false, // 隐藏详情地图
@@ -83,6 +84,13 @@ export const fieldLabels = {
     remark: '启用浅色背景，会强制关闭点点背景，配合自定义背景图片使用',
     v1customCode: true,
     version: '0.4.23+',
+  },
+  listServerItemTypeToggle: {
+    label: '列表项类型切换',
+    type: 'switch',
+    remark: '启用列表项类型切换，启用后列表项类型会显示为切换按钮，可以切换为卡片和行',
+    v1customCode: true,
+    version: '0.5.0+',
   },
   listServerItemType: {
     label: '列表项类型',
