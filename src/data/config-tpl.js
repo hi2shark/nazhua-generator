@@ -5,6 +5,8 @@ export default {
   buyBtnText: '购买', // 购买按钮文案
   customBackgroundImage: '', // 自定义的背景图片地址
   lightBackground: false, // 启用了浅色系背景图，会强制关闭点点背景
+  showFireworks: true, // 是否显示烟花，建议开启浅色系背景
+  showLantern: true, // 是否显示灯笼
   listServerItemTypeToggle: true, // 服务器列表项类型切换
   listServerItemType: 'card', // 服务器列表项类型 card/row
   listServerStatusType: 'progress', // 服务器状态类型--列表
@@ -84,6 +86,20 @@ export const fieldLabels = {
     remark: '启用浅色背景，会强制关闭点点背景，配合自定义背景图片使用',
     v1customCode: true,
     version: '0.4.23+',
+  },
+  showFireworks: {
+    label: '启用烟花',
+    type: 'switch',
+    remark: '启用烟花，建议开启浅色背景',
+    v1customCode: true,
+    version: '0.5.1+',
+  },
+  showLantern: {
+    label: '启用灯笼',
+    type: 'switch',
+    remark: '启用“新年快乐”灯笼',
+    v1customCode: true,
+    version: '0.5.1+',
   },
   listServerItemTypeToggle: {
     label: '列表项类型切换',
