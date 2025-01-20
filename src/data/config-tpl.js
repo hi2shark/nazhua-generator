@@ -1,5 +1,6 @@
 export default {
   title: '哪吒监控', // 网站标题
+  footerSlogan: '', // 页脚标语
   freeAmount: '白嫖', // 免费服务的费用名称
   infinityCycle: '长期有效', // 无限周期名称
   buyBtnText: '购买', // 购买按钮文案
@@ -50,6 +51,14 @@ export const fieldLabels = {
     remark: '默认显示为“哪吒探针”',
     type: 'input',
     v1customCode: true,
+  },
+  footerSlogan: {
+    label: '页脚标语',
+    placeholder: '请输入页脚标语',
+    remark: '留空不占位，支持HTML代码（不支持script标签动态代码）',
+    type: 'input',
+    v1customCode: true,
+    version: '0.5.2+',
   },
   freeAmount: {
     label: '免费的叫啥',
