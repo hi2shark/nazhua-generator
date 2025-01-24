@@ -8,6 +8,7 @@ export default {
   lightBackground: false, // 启用了浅色系背景图，会强制关闭点点背景
   showFireworks: true, // 是否显示烟花，建议开启浅色系背景
   showLantern: true, // 是否显示灯笼
+  enableInnerSearch: true, // 启用内部搜索
   listServerItemTypeToggle: true, // 服务器列表项类型切换
   listServerItemType: 'card', // 服务器列表项类型 card/row
   listServerStatusType: 'progress', // 服务器状态类型--列表
@@ -109,6 +110,13 @@ export const fieldLabels = {
     remark: '启用“新年快乐”灯笼',
     v1customCode: true,
     version: '0.5.1+',
+  },
+  enableInnerSearch: {
+    label: '启用内部搜索',
+    type: 'switch',
+    remark: '启用内部搜索，默认启用',
+    v1customCode: true,
+    version: '0.5.4+',
   },
   listServerItemTypeToggle: {
     label: '列表项类型切换',
