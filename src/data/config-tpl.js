@@ -1,5 +1,6 @@
 export default {
   title: '哪吒监控', // 网站标题
+  customFavicon: '', // 自定义favicon地址
   footerSlogan: '', // 页脚标语
   freeAmount: '白嫖', // 免费服务的费用名称
   infinityCycle: '长期有效', // 无限周期名称
@@ -52,6 +53,14 @@ export const fieldLabels = {
     remark: '默认显示为“哪吒探针”',
     type: 'input',
     v1customCode: true,
+  },
+  customFavicon: {
+    label: '自定义favicon',
+    placeholder: '请输入自定义favicon地址',
+    remark: '自定义favicon地址，建议您输入完整的图标地址',
+    type: 'input',
+    v1customCode: true,
+    version: '0.5.7+',
   },
   footerSlogan: {
     label: '页脚标语',
