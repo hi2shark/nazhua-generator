@@ -15,7 +15,8 @@ export default {
   listServerStatusType: 'progress', // 服务器状态类型--列表
   listServerRealTimeShowLoad: false, // 列表实时显示负载
   detailServerStatusType: 'progress', // 服务器状态类型--详情页
-  serverStatusLinear: true, // 服务器状态渐变线性显示
+  simpleColorMode: false, // 启用简约色系
+  serverStatusLinear: true, // 服务器状态渐变线性显示 - 与简约色系互斥
   disableSarasaTermSC: true, // 禁用Sarasa Term SC字体
   hideWorldMap: false, // 隐藏地图
   hideHomeWorldMap: false, // 隐藏首页地图
@@ -193,10 +194,17 @@ export const fieldLabels = {
     ],
     v1customCode: true,
   },
+  simpleColorMode: {
+    label: '简约色系',
+    type: 'switch',
+    remark: '启用简约色系，会强制关闭服务器状态渐变线性显示',
+    v1customCode: true,
+    version: '0.6.0+',
+  },
   serverStatusLinear: {
     label: '状态渐变显示',
     type: 'switch',
-    remark: '状态线性渐变色显示，不勾选则为单色显示',
+    remark: '状态线性渐变色显示，不勾选则为单色显示，与简约色系互斥',
     v1customCode: true,
     version: '0.4.19+',
   },
