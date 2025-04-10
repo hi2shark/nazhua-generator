@@ -21,6 +21,8 @@ export default {
   hideWorldMap: false, // 隐藏地图
   hideHomeWorldMap: false, // 隐藏首页地图
   hideDetailWorldMap: false, // 隐藏详情地图
+  homeWorldMapPosition: 'top', // 首页地图位置 top/bottom
+  detailWorldMapPosition: 'top', // 详情页地图位置 top/bottom
   hideNavbarServerCount: false, // 隐藏服务器数量
   hideNavbarServerStat: false, // 隐藏服务器统计
   hideListItemStatusDonut: false, // 隐藏列表项的饼图
@@ -30,6 +32,8 @@ export default {
   hideTag: false, // 隐藏标签
   hideDotBG: false, // 隐藏盒子里面的点阵背景
   monitorRefreshTime: 10, // 监控刷新时间间隔，单位s（秒）, 0为不刷新，为保证不频繁请求源站，最低生效值为10s
+  monitorChartType: 'multi', // 监控图表类型 single/multi
+  monitorChartTypeToggle: true, // 监控图表类型切换
   filterGPUKeywords: ['Virtual Display'], // 如果GPU名称中包含这些关键字，则过滤掉
   nezhaVersion: 'v1', // 哪吒版本
   apiMonitorPath: '/api/v1/monitor/{id}',
@@ -230,6 +234,24 @@ export const fieldLabels = {
     type: 'switch',
     v1customCode: true,
   },
+  homeWorldMapPosition: {
+    label: '首页地图位置',
+    placeholder: '请选择首页地图位置',
+    remark: '首页地图位置',
+    type: 'select',
+    options: ['top', 'bottom'],
+    v1customCode: true,
+    version: '0.6.4+',
+  },
+  detailWorldMapPosition: {
+    label: '详情页地图位置',
+    placeholder: '请选择详情页地图位置',
+    remark: '详情页地图位置',
+    type: 'select',
+    options: ['top', 'bottom'],
+    v1customCode: true,
+    version: '0.6.4+',
+  },
   hideNavbarServerCount: {
     label: '隐藏服务器数量',
     type: 'switch',
@@ -285,6 +307,22 @@ export const fieldLabels = {
     type: 'input',
     v1customCode: true,
     version: '0.4.8+',
+  },
+  monitorChartType: {
+    label: '监控图表类型',
+    placeholder: '请选择监控图表类型',
+    remark: '监控图表类型，single单独显示/multi聚合在一起',
+    type: 'select',
+    options: ['single', 'multi'],
+    v1customCode: true,
+    version: '0.6.4+',
+  },
+  monitorChartTypeToggle: {
+    label: '监控图表类型切换',
+    type: 'switch',
+    remark: '启用监控图表类型切换',
+    v1customCode: true,
+    version: '0.6.4+',
   },
   filterGPUKeywords: {
     label: 'GPU过滤关键字',
