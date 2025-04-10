@@ -239,7 +239,16 @@ export const fieldLabels = {
     placeholder: '请选择首页地图位置',
     remark: '首页地图位置',
     type: 'select',
-    options: ['top', 'bottom'],
+    options: [
+      {
+        label: '顶部(top)',
+        value: 'top',
+      },
+      {
+        label: '底部(bottom)',
+        value: 'bottom',
+      },
+    ],
     v1customCode: true,
     version: '0.6.4+',
   },
@@ -248,7 +257,16 @@ export const fieldLabels = {
     placeholder: '请选择详情页地图位置',
     remark: '详情页地图位置',
     type: 'select',
-    options: ['top', 'bottom'],
+    options: [
+      {
+        label: '顶部(top)',
+        value: 'top',
+      },
+      {
+        label: '底部(bottom)',
+        value: 'bottom',
+      },
+    ],
     v1customCode: true,
     version: '0.6.4+',
   },
@@ -313,7 +331,16 @@ export const fieldLabels = {
     placeholder: '请选择监控图表类型',
     remark: '监控图表类型，single单独显示/multi聚合在一起',
     type: 'select',
-    options: ['single', 'multi'],
+    options: [
+      {
+        label: '单个(single)',
+        value: 'single',
+      },
+      {
+        label: '多个(multi)',
+        value: 'multi',
+      },
+    ],
     v1customCode: true,
     version: '0.6.4+',
   },
