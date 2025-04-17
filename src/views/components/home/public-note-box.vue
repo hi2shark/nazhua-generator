@@ -539,8 +539,12 @@ function handleImport(data) {
       ...publicNote.value.billingDataMod,
       ...data.billingDataMod,
     };
-    publicNote.value.billingDataMod.startDate = dayjs(data.billingDataMod.startDate).format('YYYY-MM-DD');
-    publicNote.value.billingDataMod.endDate = dayjs(data.billingDataMod.endDate).format('YYYY-MM-DD');
+    if (data.billingDataMod.startDate) {
+      publicNote.value.billingDataMod.startDate = dayjs(data.billingDataMod.startDate).format('YYYY-MM-DD');
+    }
+    if (data.billingDataMod.endDate) {
+      publicNote.value.billingDataMod.endDate = dayjs(data.billingDataMod.endDate).format('YYYY-MM-DD');
+    }
   }
   if (data.planDataMod) {
     publicNote.value.planDataMod = {
