@@ -17,6 +17,8 @@
               v-model="publicNote.billingDataMod.startDate"
               type="date"
               placeholder="选择开始日期"
+              format="YYYY-MM-DD"
+              value-format="YYYY-MM-DD"
               clearable
             />
           </el-form-item>
@@ -35,6 +37,8 @@
                 type="date"
                 :disabled="endDateUnlimited"
                 placeholder="选择结束日期"
+                format="YYYY-MM-DD"
+                value-format="YYYY-MM-DD"
                 clearable
               />
             </div>
@@ -306,6 +310,7 @@ import {
   computed,
   ref,
 } from 'vue';
+import dayjs from 'dayjs';
 import fiCountry from 'flag-icons/country';
 
 import CODE_MAPS, {
@@ -534,6 +539,8 @@ function handleImport(data) {
       ...publicNote.value.billingDataMod,
       ...data.billingDataMod,
     };
+    publicNote.value.billingDataMod.startDate = dayjs(data.billingDataMod.startDate).format('YYYY-MM-DD');
+    publicNote.value.billingDataMod.endDate = dayjs(data.billingDataMod.endDate).format('YYYY-MM-DD');
   }
   if (data.planDataMod) {
     publicNote.value.planDataMod = {
