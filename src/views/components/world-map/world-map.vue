@@ -36,9 +36,9 @@ import {
   ref,
   computed,
 } from 'vue';
-import { useDark } from '@vueuse/core';
-import validate from '@/utils/validate';
+import { useStore } from 'vuex';
 
+import validate from '@/utils/validate';
 import WorldMapPoint from './world-map-point.vue';
 
 const props = defineProps({
@@ -60,8 +60,10 @@ const props = defineProps({
 
 const emits = defineEmits(['point-coord', 'select-coord', 'mouse-coord']);
 
+const store = useStore();
+
 const worldMapImgRef = ref(null);
-const isDarkMode = useDark();
+const isDarkMode = computed(() => store.state.isDarkMode);
 
 // 计算地图大小 保持1280:621的比例 保证地图不变形
 const computedSize = computed(() => {

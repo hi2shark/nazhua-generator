@@ -35,7 +35,7 @@ export default {
   monitorChartType: 'multi', // 监控图表类型 single/multi
   monitorChartTypeToggle: true, // 监控图表类型切换
   filterGPUKeywords: ['Virtual Display'], // 如果GPU名称中包含这些关键字，则过滤掉
-  nezhaVersion: 'v1', // 哪吒版本
+  nezhaVersion: 'v0', // 哪吒版本
   apiMonitorPath: '/api/v1/monitor/{id}',
   wsPath: '/ws',
   nezhaPath: '/nezha/',

@@ -1,14 +1,34 @@
 <template>
   <div class="config-box">
-    <span class="nezha-v1-dashboard-custom-code-group">
-      <span>是否用于哪吒V1控制台自定义代码？</span>
-      <el-switch
-        v-model="nezhaV1DashboardCustomCode"
-        inline-prompt
-        active-text="是"
-        inactive-text="否"
-      />
-    </span>
+    <div class="config-top-bar">
+      <div class="left-box">
+        <span class="nezha-v1-dashboard-custom-code-group">
+          <span>是否用于哪吒V1控制台自定义代码？</span>
+          <el-switch
+            v-model="nezhaV1DashboardCustomCode"
+            inline-prompt
+            active-text="是"
+            inactive-text="否"
+          />
+        </span>
+      </div>
+      <div class="right-box">
+        <el-button
+          type="warning"
+          plain
+          @click="resetConfig"
+        >
+          还原默认配置
+        </el-button>
+        <el-button
+          type="primary"
+          plain
+          @click="showImportDialog"
+        >
+          导入配置
+        </el-button>
+      </div>
+    </div>
     <el-form
       :model="configFormData"
       label-width="150px"
@@ -96,15 +116,32 @@
           </div>
         </el-form-item>
       </template>
-      <el-form-item>
-        <el-button
-          type="warning"
-          @click="resetConfig"
-        >
-          还原默认配置
-        </el-button>
-      </el-form-item>
     </el-form>
+
+    <!-- 导入配置弹窗 -->
+    <el-dialog
+      v-model="importDialogVisible"
+      title="导入配置"
+      width="500px"
+    >
+      <el-input
+        v-model="importConfigText"
+        type="textarea"
+        :rows="10"
+        placeholder="请粘贴配置代码"
+      />
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button
+            @click="importDialogVisible = false"
+          >取消</el-button>
+          <el-button
+            type="primary"
+            @click="importConfig"
+          >确定</el-button>
+        </span>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
@@ -125,6 +162,7 @@ import {
 } from 'vuex';
 import {
   ElMessageBox,
+  ElMessage,
 } from 'element-plus';
 
 import configTpl, {
@@ -141,6 +179,10 @@ const store = useStore();
 const configFormData = ref({});
 const configFormTpls = ref([]);
 const configFieldEnable = ref({});
+
+// 导入配置相关变量
+const importDialogVisible = ref(false);
+const importConfigText = ref('');
 
 const nezhaV1DashboardCustomCode = computed({
   get: () => store.state.v1CustomCode,
@@ -207,6 +249,65 @@ async function resetConfig() {
   });
 }
 
+// 显示导入配置弹窗
+function showImportDialog() {
+  importConfigText.value = '';
+  importDialogVisible.value = true;
+}
+
+// 导入配置
+function importConfig() {
+  try {
+    // 解析输入的配置代码
+    const configText = importConfigText.value.trim();
+    if (!configText) {
+      ElMessage.warning('请输入配置代码');
+      return;
+    }
+
+    let configObj = null;
+
+    // 提取 window.$$nazhuaConfig = {...} 中的 {...} 部分
+    const configMatch1 = configText.match(/window\.\$\$nazhuaConfig\s*=\s*(\{[\s\S]*\})/);
+    // 提取 window.$mergeNazhuaConfig && window.$mergeNazhuaConfig({...}) 中的 {...} 部分
+    // eslint-disable-next-line max-len, vue/max-len
+    const configMatch2 = configText.match(/window\.\$mergeNazhuaConfig\s*&&\s*window\.\$mergeNazhuaConfig\s*\((\{[\s\S]*\})\)/);
+
+    if (configMatch1 && configMatch1[1]) {
+      // 第一种格式
+      // eslint-disable-next-line no-new-func
+      configObj = (new Function(`return ${configMatch1[1]}`))();
+    } else if (configMatch2 && configMatch2[1]) {
+      // 第二种格式
+      // eslint-disable-next-line no-new-func
+      configObj = (new Function(`return ${configMatch2[1]}`))();
+    } else {
+      ElMessage.warning('配置格式不正确，请检查');
+      return;
+    }
+
+    // 更新配置表单
+    autoSaveConfigAccept = false;
+    Object.keys(configObj).forEach((key) => {
+      if (validate.hasOwn(configFormData.value, key)) {
+        configFormData.value[key] = configObj[key];
+        // 自动启用导入的配置项
+        configFieldEnable.value[key] = true;
+      }
+    });
+
+    nextTick(() => {
+      autoSaveConfigAccept = true;
+      autoSaveConfig();
+      importDialogVisible.value = false;
+      ElMessage.success('配置导入成功');
+    });
+  } catch (error) {
+    console.error('导入配置失败:', error);
+    ElMessage.error('配置导入失败，请检查配置格式是否正确');
+  }
+}
+
 onMounted(() => {
   handleConfigTpl();
   const localData = loadCustomConfig();
@@ -270,6 +371,29 @@ defineExpose({
   }
 }
 
+.config-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+
+  .left-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .right-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .el-button + .el-button {
+      margin-left: 0;
+    }
+  }
+}
+
 .label-group {
   position: relative;
 
@@ -317,11 +441,17 @@ defineExpose({
   display: flex;
   align-items: center;
   gap: 5px;
-  margin-bottom: 20px;
 
   .warning-text {
     color: #ff6;
     font-weight: bold;
   }
+}
+
+/* 导入配置弹窗样式 */
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
 }
 </style>

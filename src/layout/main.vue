@@ -3,13 +3,3 @@
     <router-view />
   </div>
 </template>
-
-<script setup>
-/**
- * 首页
- */
-</script>
-
-<style lang="scss" scoped>
-
-</style>

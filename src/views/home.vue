@@ -12,7 +12,6 @@
               inline-prompt
               active-text="Dark"
               inactive-text="Light"
-              @change="handleModeChange"
             />
           </div>
           <a
@@ -20,7 +19,14 @@
             href="https://github.com/hi2shark/nazhua"
             _target="blank"
           >
-            源代码(Github)
+            Nazhua
+          </a>
+          <a
+            class="github-link"
+            href="https://github.com/hi2shark/nazhua-generator"
+            _target="blank"
+          >
+            生成器源码
           </a>
         </div>
       </div>
@@ -55,6 +61,12 @@
             :refresh-data="handleRefreshConfigData"
           />
         </el-tab-pane>
+        <el-tab-pane
+          label="公开备注编辑器"
+          name="publicNote"
+        >
+          <public-note-box />
+        </el-tab-pane>
       </el-tabs>
     </div>
   </div>
@@ -66,20 +78,42 @@
  */
 
 import {
+  computed,
+  onMounted,
   ref,
 } from 'vue';
-import { useDark, useToggle } from '@vueuse/core';
+import {
+  useRoute,
+  useRouter,
+} from 'vue-router';
+import {
+  useStore,
+} from 'vuex';
 
 import WorldMapBox from '@/views/components/home/world-map-box.vue';
 import ConfigBox from '@/views/components/home/config-box.vue';
 import ExportBox from '@/views/components/home/export-box.vue';
+import PublicNoteBox from '@/views/components/home/public-note-box.vue';
 
 const topTab = ref('mapPoint');
+
+const route = useRoute();
+const router = useRouter();
+
+const store = useStore();
 
 const worldMapBoxRef = ref(null);
 const configBoxRef = ref(null);
 const exportBoxRef = ref(null);
-const isDarkMode = ref(useDark());
+
+const isDarkMode = computed({
+  get() {
+    return store.state.isDarkMode;
+  },
+  set() {
+    store.dispatch('toggleDarkMode');
+  },
+});
 
 function handleRefreshConfigData() {
   const mapBoxData = worldMapBoxRef.value?.getData?.();
@@ -94,11 +128,16 @@ function topTabChange() {
   if (topTab.value === 'exportConfig') {
     exportBoxRef.value?.setData?.(handleRefreshConfigData());
   }
+  router.replace({
+    query: {
+      tab: topTab.value,
+    },
+  });
 }
 
-function handleModeChange() {
-  useToggle();
-}
+onMounted(() => {
+  topTab.value = route?.query?.tab || 'mapPoint';
+});
 </script>
 
 <style lang="scss" scoped>
