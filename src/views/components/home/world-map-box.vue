@@ -90,7 +90,8 @@
         <div class="left-box">
           <div class="mode-name">
             <span class="name-label">内置定位地点</span>
-            <span class="name-desc">仅内置了几个我常见的城市定位，<span class="code-value">此颜色</span>的都是可用代码，点击可自动复制（吧</span>
+            <span class="name-desc">仅内置了几个我日常在论坛里面看到的城市定位，<span class="code-value">此颜色</span>的都是可用代码，点击可自动复制（吧</span>
+            <span class="version-desc">部分位置需要更新到最新版本才会有位置坐标</span>
           </div>
         </div>
         <div class="right-box">
@@ -110,18 +111,25 @@
           v-for="locationItem in locations"
           :key="locationItem.key"
           class="location-item"
+          :title="locationItem.version ? `支持版本：${locationItem.version}` : ''"
         >
           <span class="default-point">
             <span class="point-dot" />
           </span>
           <span class="location-name">
-            {{ locationItem.name }}
+            {{ locationItem.name }}({{ locationItem.country }})
           </span>
           <span
             class="location-code"
             @click.stop="copyText(locationItem.code)"
           >
             {{ locationItem.code }}
+          </span>
+          <span
+            v-if="locationItem.version"
+            class="version-flag"
+          >
+            <span class="version-flag-dot" />
           </span>
         </div>
       </div>
@@ -488,6 +496,13 @@ defineExpose({
         color: #ff4d4f;
       }
     }
+
+    .version-desc {
+      line-height: 16px;
+      font-size: 12px;
+      color: #aaa;
+      text-decoration: underline;
+    }
   }
 }
 
@@ -517,6 +532,7 @@ defineExpose({
   gap: 6px 12px;
 
   .location-item {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 5px;
@@ -529,6 +545,16 @@ defineExpose({
     .location-code {
       color: #ff4d4f;
       cursor: default;
+    }
+
+    .version-flag {
+      position: absolute;
+      top: 0;
+      left: 10px;
+      width: 8px;
+      height: 8px;
+      background: rgb(92, 179, 255);
+      border-radius: 50%;
     }
   }
 
