@@ -16,6 +16,7 @@ export default {
   listServerRealTimeShowLoad: false, // 列表实时显示负载
   detailServerStatusType: 'progress', // 服务器状态类型--详情页
   simpleColorMode: false, // 启用简约色系
+  // serverStatusColumnsTpl: '', // 服务器状态列模板
   serverStatusLinear: true, // 服务器状态渐变线性显示 - 与简约色系互斥
   disableSarasaTermSC: true, // 禁用Sarasa Term SC字体
   hideWorldMap: false, // 隐藏地图
@@ -29,6 +30,7 @@ export default {
   hideListItemStat: false, // 隐藏列表项的统计信息
   hideListItemBill: false, // 隐藏列表项的账单信息
   hideFilter: false, // 隐藏筛选
+  hideSort: false, // 隐藏排序
   hideTag: false, // 隐藏标签
   hideDotBG: false, // 隐藏盒子里面的点阵背景
   monitorRefreshTime: 10, // 监控刷新时间间隔，单位s（秒）, 0为不刷新，为保证不频繁请求源站，最低生效值为10s
@@ -153,9 +155,13 @@ export const fieldLabels = {
         label: '行(row)',
         value: 'row',
       },
+      {
+        label: 'ServerStatus',
+        value: 'server-status',
+      },
     ],
     v1customCode: true,
-    version: '0.4.21+',
+    version: '0.9.0+',
   },
   listServerStatusType: {
     label: '列表状态类型',
@@ -205,6 +211,14 @@ export const fieldLabels = {
     v1customCode: true,
     version: '0.6.0+',
   },
+  // serverStatusColumnsTpl: {
+  //   label: '服务器状态列模板',
+  //   placeholder: '请输入服务器状态列模板',
+  //   remark: '服务器状态列模板',
+  //   type: 'input',
+  //   v1customCode: true,
+  //   version: '0.9.0+',
+  // },
   serverStatusLinear: {
     label: '状态渐变显示',
     type: 'switch',
@@ -305,6 +319,13 @@ export const fieldLabels = {
     remark: '隐藏列表页的标签和在线/离线筛选功能',
     type: 'switch',
     v1customCode: true,
+  },
+  hideSort: {
+    label: '隐藏排序',
+    remark: '隐藏列表页的排序功能',
+    type: 'switch',
+    v1customCode: true,
+    version: '0.9.0+',
   },
   hideTag: {
     label: '隐藏标签',
