@@ -5,6 +5,7 @@ export default {
   freeAmount: '白嫖', // 免费服务的费用名称
   infinityCycle: '长期有效', // 无限周期名称
   buyBtnText: '购买', // 购买按钮文案
+  buyBtnIcon: '', // 购买按钮图标，取自remixicon
   customBackgroundImage: '', // 自定义的背景图片地址
   lightBackground: false, // 启用了浅色系背景图，会强制关闭点点背景
   showFireworks: true, // 是否显示烟花，建议开启浅色系背景
@@ -29,6 +30,8 @@ export default {
   hideListItemStatusDonut: false, // 隐藏列表项的饼图
   hideListItemStat: false, // 隐藏列表项的统计信息
   hideListItemBill: false, // 隐藏列表项的账单信息
+  hideListItemCycleTransfer: false, // 隐藏首页列表周期流量摘要
+  hideListItemLink: false, // 隐藏列表项的购买链接
   hideFilter: false, // 隐藏筛选
   hideSort: false, // 隐藏排序
   hideTag: false, // 隐藏标签
@@ -36,13 +39,19 @@ export default {
   monitorRefreshTime: 10, // 监控刷新时间间隔，单位s（秒）, 0为不刷新，为保证不频繁请求源站，最低生效值为10s
   monitorChartType: 'multi', // 监控图表类型 single/multi
   monitorChartTypeToggle: true, // 监控图表类型切换
+  listCycleTransferRefreshTime: 60, // 首页列表周期流量刷新时间，单位s（秒），0为不刷新
+  detailCycleTransferRefreshTime: 60, // 详情页周期流量刷新时间，单位s（秒），0为不刷新
+  hideDetailCycleTransfer: false, // 隐藏详情页周期流量卡片
   filterGPUKeywords: ['Virtual Display'], // 如果GPU名称中包含这些关键字，则过滤掉
   nezhaVersion: 'v0', // 哪吒版本
   apiMonitorPath: '/api/v1/monitor/{id}',
   wsPath: '/ws',
   nezhaPath: '/nezha/',
+  v0ServicePath: '', // v0 周期流量服务页地址，不填则根据 nezhaPath 自动推导
   nezhaV0ConfigType: 'servers', // 哪吒v0数据读取类型
   v1ApiMonitorPath: '/api/v1/service/{id}',
+  v1ApiMonitorPathFallback: '/api/v1/service/{id}', // v1 监控API回退路径
+  v1ApiServicePath: '/api/v1/service', // v1 周期流量与服务反馈总览
   v1WsPath: '/api/v1/ws/server',
   v1ApiGroupPath: '/api/v1/server-group',
   v1ApiSettingPath: '/api/v1/setting',
@@ -88,6 +97,13 @@ export const fieldLabels = {
     label: '购买按钮文案',
     placeholder: '请输入购买按钮文案',
     remark: '默认显示为“购买”，万一你想叫它“下单”呢？',
+    type: 'input',
+    v1customCode: true,
+  },
+  buyBtnIcon: {
+    label: '购买按钮图标',
+    placeholder: '请输入购买按钮图标',
+    remark: '购买按钮图标，取自remixicon，默认图标为 ri-shopping-bag-3-line',
     type: 'input',
     v1customCode: true,
   },
@@ -314,6 +330,20 @@ export const fieldLabels = {
     type: 'switch',
     v1customCode: true,
   },
+  hideListItemCycleTransfer: {
+    label: '隐藏列表周期流量',
+    remark: '隐藏首页列表项的周期流量摘要',
+    type: 'switch',
+    v1customCode: true,
+    version: '1.0.0+',
+  },
+  hideListItemLink: {
+    label: '隐藏列表购买链接',
+    remark: '隐藏列表项的购买链接',
+    type: 'switch',
+    v1customCode: true,
+    version: '1.0.0+',
+  },
   hideFilter: {
     label: '隐藏筛选',
     remark: '隐藏列表页的标签和在线/离线筛选功能',
@@ -372,6 +402,29 @@ export const fieldLabels = {
     v1customCode: true,
     version: '0.6.4+',
   },
+  listCycleTransferRefreshTime: {
+    label: '列表周期流量刷新时间',
+    placeholder: '请输入列表周期流量刷新时间',
+    remark: '首页列表周期流量刷新时间，单位s（秒），0为不刷新',
+    type: 'input',
+    v1customCode: true,
+    version: '1.0.0+',
+  },
+  detailCycleTransferRefreshTime: {
+    label: '详情周期流量刷新时间',
+    placeholder: '请输入详情周期流量刷新时间',
+    remark: '详情页周期流量刷新时间，单位s（秒），0为不刷新',
+    type: 'input',
+    v1customCode: true,
+    version: '1.0.0+',
+  },
+  hideDetailCycleTransfer: {
+    label: '隐藏详情周期流量',
+    remark: '隐藏详情页的周期流量卡片',
+    type: 'switch',
+    v1customCode: true,
+    version: '1.0.0+',
+  },
   filterGPUKeywords: {
     label: 'GPU过滤关键字',
     placeholder: '请输入GPU过滤关键字',
@@ -414,6 +467,13 @@ export const fieldLabels = {
     remark: 'v0哪吒探针主页的地址，用于异步读取公开的节点信息，如果不可用无法读取“公开备注”',
     type: 'input',
   },
+  v0ServicePath: {
+    label: 'v0服务页地址',
+    placeholder: '请输入v0服务页地址',
+    remark: 'v0 周期流量服务页地址，不填则根据 nezhaPath 自动推导',
+    type: 'input',
+    version: '1.0.0+',
+  },
   nezhaV0ConfigType: {
     label: '数据匹配关键词',
     placeholder: '请输入哪吒v0数据匹配关键词',
@@ -437,6 +497,20 @@ export const fieldLabels = {
     placeholder: '请输入v1网络服务监控API路径',
     remark: '主要是网络服务那个监控数据的读取，目前只会替换关键词 {id}',
     type: 'input',
+  },
+  v1ApiMonitorPathFallback: {
+    label: 'v1监控API回退地址',
+    placeholder: '请输入v1监控API回退路径',
+    remark: 'v1 监控API回退路径',
+    type: 'input',
+    version: '1.0.0+',
+  },
+  v1ApiServicePath: {
+    label: 'v1服务总览API地址',
+    placeholder: '请输入v1服务总览API路径',
+    remark: 'v1 周期流量与服务反馈总览',
+    type: 'input',
+    version: '1.0.0+',
   },
   v1WsPath: {
     label: 'v1WS服务地址',
